@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>LocalStorageサンプル</title>
+</head>
+<body>
+  <h1>LocalStorage でデータ保存</h1>
+
+  <input id="inputText" type="text" placeholder="ここに入力" />
+  <button id="saveBtn">保存</button>
+  <button id="loadBtn">読み込み</button>
+  <button id="clearBtn">クリア</button>
+
+  <p>保存されたデータ: <span id="savedData">なし</span></p>
+
+  <script>
+    const input = document.getElementById('inputText');
+    const saveBtn = document.getElementById('saveBtn');
+    const loadBtn = document.getElementById('loadBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const savedData = document.getElementById('savedData');
+
+    // 保存
+    saveBtn.onclick = () => {
+      const val = input.value;
+      if (val) {
+        localStorage.setItem('myData', val);
+        alert('保存しました！');
+        savedData.textContent = val;
+      } else {
+        alert('入力してください');
+      }
+    };
+
+    // 読み込み
+    loadBtn.onclick = () => {
+      const val = localStorage.getItem('myData');
+      savedData.textContent = val || 'データがありません';
+    };
+
+    // クリア
+    clearBtn.onclick = () => {
+      localStorage.removeItem('myData');
+      savedData.textContent = 'なし';
+      alert('データを削除しました');
+    };
+
+    // ページ読み込み時に自動読み込み
+    window.onload = () => {
+      const val = localStorage.getItem('myData');
+      savedData.textContent = val || 'なし';
+    };
+  </script>
+</body>
+</html>
